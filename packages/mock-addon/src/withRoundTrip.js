@@ -1,4 +1,4 @@
-import { FORCE_RE_RENDER, STORY_CHANGED } from 'storybook/core-events';
+import { FORCE_RE_RENDER, STORY_CHANGED } from 'storybook/internal/core-events';
 import { EVENTS, PARAM_KEY, GLOBAL_PARAM_KEY } from './utils/constants';
 import faker from './utils/faker';
 import { addons } from 'storybook/preview-api';

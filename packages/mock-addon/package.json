@@ -44,6 +44,7 @@
     "release": "yarn build && auto shipit"
   },
   "dependencies": {
+    "@storybook/addon-docs": "^9.0.4",
     "mock-xmlhttprequest": "^8.1.0",
     "path-to-regexp": "^6.2.1",
     "polished": "^4.2.2",
