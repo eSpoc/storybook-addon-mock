@@ -41,7 +41,7 @@
         "*.d.ts"
     ],
     "scripts": {
-        "clean": "t ./dist",
+        "clean": "rimraf ./dist",
         "prebuild": "yarn clean",
         "build": "tsup",
         "build-storybook": "storybook build",
