@@ -33,7 +33,17 @@ export default defineConfig(async () => {
      The following packages are provided by Storybook and should always be externalized
      Meaning they shouldn't be bundled with the addon, and they shouldn't be regular dependencies either
     */
-        external: ['react', 'react-dom', '@storybook/icons'],
+        external: [
+            'react',
+            'react-dom',
+            '@storybook/icons',
+            'storybook/internal/components',
+            'storybook/internal/types',
+            'storybook/theming',
+            'storybook/manager-api',
+            'storybook/preview-api',
+            '@storybook/addon-docs/blocks',
+        ],
     };
 
     const configs: Options[] = [];

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from 'storybook/theming';
-import { ObjectControl, RangeControl } from '@storybook/addon-docs/blocks';
 import { Form, Placeholder } from 'storybook/internal/components';
 import { Card } from './Card';
 import statusTextMap from '../utils/statusMap';
@@ -10,7 +9,7 @@ const statusCodes = Object.keys(
     statusTextMap
 ) as unknown as (keyof typeof statusTextMap)[];
 
-const { Field: SBField, Select } = Form;
+const { Field: SBField, Select, Textarea } = Form;
 
 const Method = styled.div`
     font-weight: 700;
@@ -90,6 +89,35 @@ const Fieldset = styled.fieldset`
     }
 `;
 
+const RangeContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+`;
+
+const RangeInput = styled.input`
+    flex: 1;
+    min-width: 0;
+`;
+
+const RangeValue = styled.span`
+    min-width: 4em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+`;
+
+const JsonTextarea = styled(Textarea)`
+    font-family: monospace;
+    min-height: 100px;
+    resize: vertical;
+`;
+
+const ErrorText = styled.div`
+    color: ${({ theme }) => theme.color.negative};
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+`;
+
 export const MockItem = ({
     id: _id,
     url,
@@ -111,6 +139,25 @@ export const MockItem = ({
     onChange: (key: string, value: unknown) => void;
     disableUsingOriginal: boolean;
 }) => {
+    const [jsonError, setJsonError] = useState<string>('');
+    const responseStr =
+        typeof response === 'string'
+            ? response
+            : JSON.stringify(response, null, 2);
+
+    const handleResponseChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        try {
+            const parsed = JSON.parse(value);
+            setJsonError('');
+            onChange('response', parsed);
+        } catch (err) {
+            setJsonError(
+                err instanceof Error ? err.message : 'Invalid JSON'
+            );
+        }
+    };
+
     return (
         <Card
             onToggle={(value) => onChange('skip', !value)}
@@ -138,14 +185,20 @@ export const MockItem = ({
                     </Select>
                 </Field>
                 <Field label="Delay">
-                    <RangeControl
-                        name="delay"
-                        value={delay}
-                        onChange={(value) => onChange('delay', value)}
-                        min={0}
-                        max={10000}
-                        step={500}
-                    />
+                    <RangeContainer>
+                        <RangeInput
+                            type="range"
+                            name="delay"
+                            value={delay}
+                            onChange={(e) =>
+                                onChange('delay', Number(e.target.value))
+                            }
+                            min={0}
+                            max={10000}
+                            step={500}
+                        />
+                        <RangeValue>{delay}ms</RangeValue>
+                    </RangeContainer>
                 </Field>
             </StatusDelayContainer>
             <Fieldset>
@@ -156,11 +209,14 @@ export const MockItem = ({
                         the declaration.
                     </Placeholder>
                 ) : (
-                    <ObjectControl
-                        name=""
-                        value={response}
-                        onChange={(value) => onChange('response', value)}
-                    />
+                    <div>
+                        <JsonTextarea
+                            name="response"
+                            value={responseStr}
+                            onChange={handleResponseChange}
+                        />
+                        {jsonError && <ErrorText>{jsonError}</ErrorText>}
+                    </div>
                 )}
             </Fieldset>
         </Card>
