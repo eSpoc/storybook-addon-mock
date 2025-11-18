@@ -6,7 +6,9 @@ import { Form, Placeholder } from 'storybook/internal/components';
 import { Card } from './Card';
 import statusTextMap from '../utils/statusMap';
 
-const statusCodes = Object.keys(statusTextMap) as unknown as (keyof typeof statusTextMap)[];
+const statusCodes = Object.keys(
+    statusTextMap
+) as unknown as (keyof typeof statusTextMap)[];
 
 const { Field: SBField, Select } = Form;
 
@@ -86,10 +88,10 @@ const Fieldset = styled.fieldset`
         margin: 1rem;
         position: relative;
     }
-`
+`;
 
 export const MockItem = ({
-    id,
+    id: _id,
     url,
     method,
     status,
@@ -104,9 +106,9 @@ export const MockItem = ({
     method: string;
     status: string | number;
     skip: boolean;
-    response: any;
+    response: unknown;
     delay: number;
-    onChange: (key: string, value: any) => void;
+    onChange: (key: string, value: unknown) => void;
     disableUsingOriginal: boolean;
 }) => {
     return (
@@ -150,16 +152,14 @@ export const MockItem = ({
                 <legend>Response</legend>
                 {typeof response === 'function' ? (
                     <Placeholder>
-                        This is a custom function. You can only change it
-                        from the declaration.
+                        This is a custom function. You can only change it from
+                        the declaration.
                     </Placeholder>
                 ) : (
                     <ObjectControl
                         name=""
                         value={response}
-                        onChange={(value) =>
-                            onChange('response', value)
-                        }
+                        onChange={(value) => onChange('response', value)}
                     />
                 )}
             </Fieldset>

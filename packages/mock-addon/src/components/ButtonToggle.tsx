@@ -84,7 +84,13 @@ const Label = styled.label(({ theme }) => ({
     },
 }));
 
-export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }: {
+export const ButtonToggle = ({
+    name,
+    value,
+    onChange,
+    onBlur,
+    onFocus,
+}: {
     name: string;
     value: boolean;
     onChange?: (newValue: boolean) => void;
@@ -96,7 +102,9 @@ export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }: {
             <input
                 id={name}
                 type="checkbox"
-                onChange={onChange ? (e) => onChange(e.target.checked) : undefined}
+                onChange={
+                    onChange ? (e) => onChange(e.target.checked) : undefined
+                }
                 checked={value || false}
                 {...{ name, onBlur, onFocus }}
             />

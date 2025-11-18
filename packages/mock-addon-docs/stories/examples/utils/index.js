@@ -31,7 +31,6 @@ export const callFetch = async ({
         }
         status = response.status;
     } catch (err) {
-        // eslint-disable-next-line no-console
         console.error(err);
         error = err;
     }

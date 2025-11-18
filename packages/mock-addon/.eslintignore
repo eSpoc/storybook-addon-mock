@@ -1,8 +1,0 @@
-# zx environment
-scripts/prepublish-checks.js
-
-# dependencies
-node_modules
-
-#build files
-dist

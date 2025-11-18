@@ -59,7 +59,9 @@ export const withRoundTrip: DecoratorFunction = (storyFn, context) => {
                 mockData: req,
                 disableUsingOriginal,
             });
-            refreshStoryOnUpdate && channel.emit(FORCE_RE_RENDER);
+            if (refreshStoryOnUpdate) {
+                channel.emit(FORCE_RE_RENDER);
+            }
         });
 
         INITIAL_MOUNT_STATE = false;

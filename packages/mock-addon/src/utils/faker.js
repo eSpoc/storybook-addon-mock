@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
@@ -13,7 +12,6 @@ import { getNormalizedUrl } from './url';
 import { validate, schema } from './validator';
 
 let global =
-    // eslint-disable-next-line no-undef
     (typeof globalThis !== 'undefined' && globalThis) ||
     (typeof self !== 'undefined' && self) ||
     (typeof global !== 'undefined' && global) ||
@@ -130,7 +128,6 @@ export class Faker {
         const matched = this.matchMock(url, method);
 
         if (!matched) {
-            // eslint-disable-next-line no-restricted-globals
             return global.realFetch(input, options);
         }
 

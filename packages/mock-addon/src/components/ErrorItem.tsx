@@ -17,9 +17,13 @@ const Li = styled.li`
     font-style: italic;
 `;
 
-export const ErrorItem = ({ errors, originalRequest, position }: {
+export const ErrorItem = ({
+    errors,
+    originalRequest,
+    position,
+}: {
     errors: string[];
-    originalRequest: any;
+    originalRequest: Record<string, unknown>;
     position: number;
 }) => {
     return (

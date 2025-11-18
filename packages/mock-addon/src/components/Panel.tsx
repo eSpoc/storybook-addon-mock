@@ -19,7 +19,7 @@ interface MockData {
     delay: number;
     path: string;
     searchParamKeys: string[];
-    errors: string[],
+    errors: string[];
     originalRequest: unknown;
 }
 
@@ -37,7 +37,7 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         },
     });
 
-    const onChange = (item: MockData, key: string, value: any) => {
+    const onChange = (item: MockData, key: string, value: unknown) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
@@ -65,8 +65,12 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
                             />
                         );
                     }
-                    // eslint-disable-next-line no-unused-vars
-                    const { searchParamKeys, path, ...rest } = item;
+
+                    const {
+                        searchParamKeys: _searchParamKeys,
+                        path: _path,
+                        ...rest
+                    } = item;
 
                     return (
                         <MockItem
