@@ -1,6 +1,6 @@
 {
     "name": "@espoc/storybook-addon-mock",
-    "version": "10.0.0",
+    "version": "10.1.1",
     "description": "A storybook addon to mock fetch/XHR request",
     "keywords": [
         "storybook",
