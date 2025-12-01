@@ -1,3 +1,4 @@
+// packages/mock-addon/src/components/Panel.tsx
 import React from 'react';
 import { useAddonState, useChannel } from 'storybook/manager-api';
 import {
@@ -17,10 +18,11 @@ interface MockData {
     status: string | number;
     skip: boolean;
     delay: number;
+    response?: unknown;
     path: string;
     searchParamKeys: string[];
-    errors: string[];
-    originalRequest: unknown;
+    errors?: string[];
+    originalRequest?: Record<string, unknown>;
 }
 
 export const Panel = (props: Partial<Addon_RenderOptions>) => {
@@ -31,6 +33,7 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         mockData: [],
         disableUsingOriginal: false,
     });
+
     const emit = useChannel({
         [EVENTS.SEND]: (newState) => {
             setState(newState);
@@ -41,50 +44,52 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
-    const { mockData, disableUsingOriginal } = state;
-    if (!mockData || mockData.length === 0) {
-        return (
-            <AddonPanel {...props} active={props.active ?? false}>
-                <Placeholder>No mock data found.</Placeholder>
-            </AddonPanel>
-        );
-    }
+    const mockData = state?.mockData ?? [];
+    const disableUsingOriginal = state?.disableUsingOriginal ?? false;
 
+    // CRITICAL: No early returns after hooks - move conditional inside JSX
     return (
         <AddonPanel {...props} active={props.active ?? false}>
-            <ScrollArea>
-                {mockData.map((item, index) => {
-                    const { errors, originalRequest } = item;
-                    if (errors && errors.length) {
+            {mockData.length === 0 ? (
+                <Placeholder>No mock data found.</Placeholder>
+            ) : (
+                <ScrollArea vertical horizontal>
+                    {mockData.map((item, index) => {
+                        if (item.errors?.length && item.originalRequest) {
+                            return (
+                                <ErrorItem
+                                    key={index}
+                                    errors={item.errors}
+                                    originalRequest={item.originalRequest}
+                                    position={index}
+                                />
+                            );
+                        }
+
+                        const {
+                            searchParamKeys: _searchParamKeys,
+                            path: _path,
+                            errors: _errors,
+                            originalRequest: _originalRequest,
+                            response,
+                            ...rest
+                        } = item;
+
                         return (
-                            <ErrorItem
+                            <MockItem
                                 key={index}
-                                errors={errors}
-                                originalRequest={originalRequest}
-                                position={index}
+                                id={index}
+                                onChange={(key, value) =>
+                                    onChange(item, key, value)
+                                }
+                                disableUsingOriginal={disableUsingOriginal}
+                                response={response}
+                                {...rest}
                             />
                         );
-                    }
-
-                    const {
-                        searchParamKeys: _searchParamKeys,
-                        path: _path,
-                        ...rest
-                    } = item;
-
-                    return (
-                        <MockItem
-                            id={index}
-                            key={index}
-                            onChange={(key, value) =>
-                                onChange(item, key, value)
-                            }
-                            disableUsingOriginal={disableUsingOriginal}
-                            {...rest}
-                        />
-                    );
-                })}
-            </ScrollArea>
+                    })}
+                </ScrollArea>
+            )}
         </AddonPanel>
     );
 };

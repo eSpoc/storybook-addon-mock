@@ -145,16 +145,16 @@ export const MockItem = ({
             ? response
             : JSON.stringify(response, null, 2);
 
-    const handleResponseChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleResponseChange = (
+        e: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         const value = e.target.value;
         try {
             const parsed = JSON.parse(value);
             setJsonError('');
             onChange('response', parsed);
         } catch (err) {
-            setJsonError(
-                err instanceof Error ? err.message : 'Invalid JSON'
-            );
+            setJsonError(err instanceof Error ? err.message : 'Invalid JSON');
         }
     };
 
