@@ -1,28 +1,30 @@
-name: Release
+name: Publish to npm
 
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on tags like v1.0.1
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
-
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: '20'  # Match your Node version
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: npm ci
 
-      - name: Create Release
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Publish to npm
+        run: npm publish --access public  # Remove --access if not scoped/public
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          yarn release
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
