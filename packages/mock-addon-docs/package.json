@@ -1,5 +1,5 @@
 {
-    "name": "storybook-addon-mock-docs",
+    "name": "@espoc/storybook-addon-mock-docs",
     "version": "1.0.0",
     "description": "A package with documentation and example for storybook-addon-mock",
     "main": "index.js",
