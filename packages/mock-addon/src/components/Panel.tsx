@@ -1,3 +1,4 @@
+// packages/mock-addon/src/components/Panel.tsx
 import React from 'react';
 import { useAddonState, useChannel } from 'storybook/manager-api';
 import {
@@ -32,6 +33,7 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         mockData: [],
         disableUsingOriginal: false,
     });
+
     const emit = useChannel({
         [EVENTS.SEND]: (newState) => {
             setState(newState);
@@ -42,8 +44,10 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
-    const { mockData = [], disableUsingOriginal } = state;
+    const mockData = state?.mockData ?? [];
+    const disableUsingOriginal = state?.disableUsingOriginal ?? false;
 
+    // CRITICAL: No early returns after hooks - move conditional inside JSX
     return (
         <AddonPanel {...props} active={props.active ?? false}>
             {mockData.length === 0 ? (
@@ -51,13 +55,12 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
             ) : (
                 <ScrollArea vertical horizontal>
                     {mockData.map((item, index) => {
-                        const { errors, originalRequest } = item;
-                        if (errors?.length && originalRequest) {
+                        if (item.errors?.length && item.originalRequest) {
                             return (
                                 <ErrorItem
                                     key={index}
-                                    errors={errors}
-                                    originalRequest={originalRequest}
+                                    errors={item.errors}
+                                    originalRequest={item.originalRequest}
                                     position={index}
                                 />
                             );
@@ -74,8 +77,8 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
 
                         return (
                             <MockItem
-                                id={index}
                                 key={index}
+                                id={index}
                                 onChange={(key, value) =>
                                     onChange(item, key, value)
                                 }
