@@ -17,10 +17,11 @@ interface MockData {
     status: string | number;
     skip: boolean;
     delay: number;
+    response?: unknown;
     path: string;
     searchParamKeys: string[];
-    errors: string[];
-    originalRequest: unknown;
+    errors?: string[];
+    originalRequest?: Record<string, unknown>;
 }
 
 export const Panel = (props: Partial<Addon_RenderOptions>) => {
@@ -42,49 +43,49 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
     };
 
     const { mockData, disableUsingOriginal } = state;
-    if (!mockData || mockData.length === 0) {
-        return (
-            <AddonPanel {...props} active={props.active ?? false}>
-                <Placeholder>No mock data found.</Placeholder>
-            </AddonPanel>
-        );
-    }
 
     return (
         <AddonPanel {...props} active={props.active ?? false}>
-            <ScrollArea>
-                {mockData.map((item, index) => {
-                    const { errors, originalRequest } = item;
-                    if (errors && errors.length) {
+            {!mockData || mockData.length === 0 ? (
+                <Placeholder>No mock data found.</Placeholder>
+            ) : (
+                <ScrollArea>
+                    {mockData.map((item, index) => {
+                        const { errors, originalRequest } = item;
+                        if (errors && errors.length && originalRequest) {
+                            return (
+                                <ErrorItem
+                                    key={index}
+                                    errors={errors}
+                                    originalRequest={originalRequest}
+                                    position={index}
+                                />
+                            );
+                        }
+
+                        const {
+                            searchParamKeys: _searchParamKeys,
+                            path: _path,
+                            errors: _errors,
+                            originalRequest: _originalRequest,
+                            ...rest
+                        } = item;
+
                         return (
-                            <ErrorItem
+                            <MockItem
+                                id={index}
                                 key={index}
-                                errors={errors}
-                                originalRequest={originalRequest}
-                                position={index}
+                                onChange={(key, value) =>
+                                    onChange(item, key, value)
+                                }
+                                disableUsingOriginal={disableUsingOriginal}
+                                response={item.response}
+                                {...rest}
                             />
                         );
-                    }
-
-                    const {
-                        searchParamKeys: _searchParamKeys,
-                        path: _path,
-                        ...rest
-                    } = item;
-
-                    return (
-                        <MockItem
-                            id={index}
-                            key={index}
-                            onChange={(key, value) =>
-                                onChange(item, key, value)
-                            }
-                            disableUsingOriginal={disableUsingOriginal}
-                            {...rest}
-                        />
-                    );
-                })}
-            </ScrollArea>
+                    })}
+                </ScrollArea>
+            )}
         </AddonPanel>
     );
 };
