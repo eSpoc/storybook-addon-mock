@@ -42,17 +42,17 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
-    const { mockData, disableUsingOriginal } = state;
+    const { mockData = [], disableUsingOriginal } = state;
 
     return (
         <AddonPanel {...props} active={props.active ?? false}>
-            {!mockData || mockData.length === 0 ? (
+            {mockData.length === 0 ? (
                 <Placeholder>No mock data found.</Placeholder>
             ) : (
-                <ScrollArea>
+                <ScrollArea vertical horizontal>
                     {mockData.map((item, index) => {
                         const { errors, originalRequest } = item;
-                        if (errors && errors.length && originalRequest) {
+                        if (errors?.length && originalRequest) {
                             return (
                                 <ErrorItem
                                     key={index}
@@ -68,6 +68,7 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
                             path: _path,
                             errors: _errors,
                             originalRequest: _originalRequest,
+                            response,
                             ...rest
                         } = item;
 
@@ -79,7 +80,7 @@ export const Panel = (props: Partial<Addon_RenderOptions>) => {
                                     onChange(item, key, value)
                                 }
                                 disableUsingOriginal={disableUsingOriginal}
-                                response={item.response}
+                                response={response}
                                 {...rest}
                             />
                         );
