@@ -1,5 +1,5 @@
 {
-  "name": "@espoc/storybook-addon-mock-root",
+  "name": "@storybook-community/storybook-addon-mock-root",
   "description": "A monorepo for storybook-addon-mock",
   "private": true,
   "workspaces": [
@@ -12,9 +12,9 @@
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
     "ci": "yarn run lint && yarn run test && yarn run addon:build && yarn run docs:build",
-    "addon:build": "yarn workspace @espoc/storybook-addon-mock run build",
-    "docs:start": "yarn workspace @espoc/storybook-addon-mock-docs run storybook",
-    "docs:build": "yarn workspace @espoc/storybook-addon-mock-docs run build",
+    "addon:build": "yarn workspace @storybook-community/storybook-addon-mock run build",
+    "docs:start": "yarn workspace @storybook-community/storybook-addon-mock-docs run storybook",
+    "docs:build": "yarn workspace @storybook-community/storybook-addon-mock-docs run build",
     "dedup": "yarn-deduplicate"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "keywords": [
     "storybook",
+    "storybook-community",
     "mock",
     "http-mock",
     "fetch-mock",
