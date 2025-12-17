@@ -1,25 +1,24 @@
 <div align="center">
-        <img src="https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg" alt="Storybook addon mock" height="150" />
+        <img src="https://raw.githubusercontent.com/eSpoc/storybook-addon-mock/master/assets/logo.svg" alt="Storybook addon mock" height="150" />
         <h1>Storybook Addon Mock</h1>
 </div>
 
 <p>
-    <a href="https://github.com/nutboltu/storybook-addon-mock/actions">
-        <img src="https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg" alt="Actions Status" />
+    <a href="https://github.com/eSpoc/storybook-addon-mock/actions">
+        <img src="https://github.com/eSpoc/storybook-addon-mock/actions/workflows/build.yml/badge.svg" alt="Actions Status" />
     </a>
     <a href="#">
-        <img src="https://img.shields.io/npm/dm/storybook-addon-mock.svg" alt="Npm download" />
+        <img src="https://img.shields.io/npm/dm/%40espoc%2Fstorybook-addon-mock.svg" alt="Npm download" />
     </a>
-    <a href="https://badge.fury.io/js/storybook-addon-mock">
-        <img src="https://badge.fury.io/js/storybook-addon-mock.svg" alt="npm version" />
+    <a href="https://badge.fury.io/js/@espoc%2Fstorybook-addon-mock">
+        <img src="https://badge.fury.io/js/@espoc%2Fstorybook-addon-mock.svg" alt="npm version" />
     </a>
-     <a href="https://github.com/nutboltu/storybook-addon-mock/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/nutboltu/storybook-addon-mock" alt="License" />
+     <a href="https://github.com/eSpoc/storybook-addon-mock/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/eSpoc/storybook-addon-mock" alt="License" />
     </a>
 </p>
 
-[![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
-
+[![NPM](https://nodei.co/npm/@espoc/storybook-addon-mock.svg?data=d,s)](https://nodei.co/npm/@espoc/storybook-addon-mock/)
 
 This addon allows you to mock fetch or XMLHttprequest requests in [storybook](https://storybook.js.org/).
 If your component depends on backend requests, and your backend requests are not ready yet to feed your component,
