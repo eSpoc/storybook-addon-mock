@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directories:
+      - '/'
+    schedule:
+      interval: 'weekly'
+    versioning-strategy: increase
+    groups:
+      all:
+        patterns:
+          - '*'
+    ignore:
+      - dependency-name: '@storybook/*'
+      - dependency-name: 'storybook'

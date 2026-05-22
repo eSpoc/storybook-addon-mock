@@ -1,5 +1,5 @@
 {
-    "name": "@espoc/storybook-addon-mock",
+    "name": "@storybook-community/storybook-addon-mock",
     "version": "10.1.1",
     "description": "A storybook addon to mock fetch/XHR request",
     "keywords": [
@@ -18,7 +18,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/eSpoc/storybook-addon-mock.git"
+        "url": "https://github.com/storybook-community/storybook-addon-mock.git"
     },
     "type": "module",
     "exports": {

@@ -1,11 +1,14 @@
 <div align="center">
-        <img src="https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg" alt="Storybook addon mock" height="150" />
+        <img src="https://raw.githubusercontent.com/storybook-community/storybook-addon-mock/main/assets/logo.svg" alt="Storybook addon mock" height="150" />
         <h1>Storybook Addon Mock</h1>
 </div>
 
+> [!NOTE]
+> This is a fork maintained by the community to provide support for Storybook 10 and beyond. This addon was originally developed by Linear Labs.
+
 <p>
-    <a href="https://github.com/nutboltu/storybook-addon-mock/actions">
-        <img src="https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg" alt="Actions Status" />
+    <a href="https://github.com/storybook-community/storybook-addon-mock/actions">
+        <img src="https://github.com/storybook-community/storybook-addon-mock/workflows/CI/badge.svg" alt="Actions Status" />
     </a>
     <a href="#">
         <img src="https://img.shields.io/npm/dm/storybook-addon-mock.svg" alt="Npm download" />
@@ -13,8 +16,8 @@
     <a href="https://badge.fury.io/js/storybook-addon-mock">
         <img src="https://badge.fury.io/js/storybook-addon-mock.svg" alt="npm version" />
     </a>
-     <a href="https://github.com/nutboltu/storybook-addon-mock/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/nutboltu/storybook-addon-mock" alt="License" />
+     <a href="https://github.com/storybook-community/storybook-addon-mock/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/storybook-community/storybook-addon-mock" alt="License" />
     </a>
 </p>
 
@@ -49,7 +52,7 @@ Mostly, there's no playground to modify the response and see the changes in the 
 
 [See the documentation](https://storybook-addon-mock.netlify.app)
 
-[Older(2.*) version documentation](https://github.com/nutboltu/storybook-addon-mock/blob/2.4.1/README.md)
+[Older(2.*) version documentation](https://github.com/storybook-community/storybook-addon-mock/blob/2.4.1/README.md)
 ### License
 
 This project is licensed under the MIT License - see the LICENSE file in the source code for details.
